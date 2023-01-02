@@ -4,7 +4,8 @@
   "description": "para hacer :",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "initDB": "node bbdd/initDB.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -25,10 +26,10 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "nodemailer": "^6.8.0",
-    "nodemon": "^2.0.20",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "eslint": "^8.31.0"
+    "eslint": "^8.31.0",
+    "nodemon": "^2.0.20"
   }
 }
