@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 //importamos la funcion que retorna la conexion con la BBDD
 const getConnection = require("./getConnection");
 
@@ -44,8 +42,45 @@ const main = async () => {
         id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
         title VARCHAR(35),
         text TEXT,
+        categories (AQUI UN INNERJOIN O ALGO, NO SE TENGO MIEDO),
+        createdAt TIMESTAMP NOT NULL,
+        modifiedAt TIMESTAMP
+
         
     )`);
+
+    await connection.query(`
+    CREATE TABLE IF NOT EXIST entryPhotos(
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    createdAt TIMESTAMP NOT NULL,
+    modifiedAt TIMESTAMP)`);
     //sin terminar, falta el join entre categories y entryNotes
-  } catch (error) {}
+
+    console.log("¡Tablas creadas!");
+
+    //Enciptamos la contraseña del admin (NO ESTOY SEGURO SI ES USUARIO ADMIN O EL DUEÑO DE LA PAGINA)
+    const adminPass = await bcrypt.hash(process.env.ADMIN_PASS, 10);
+
+    //insertamos el usuario administrador
+    await connection.query(
+      `
+            INSERT INTO users (email, password, createdAt)
+            VALUES ('admin@admin.com', ?, ?)
+        `,
+      [adminPass, new Date()]
+    );
+
+    console.log("Administrador creado");
+  } catch (err) {
+    console.error(err);
+  } finally {
+    if (connection) connection.release();
+
+    //cerramos el proceso
+    process.exit();
+  }
 };
+
+//ejecutamos la funcion main
+main();
