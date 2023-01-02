@@ -12,7 +12,7 @@ const insertEntryQuery = async (title, text, categories, idUser) => {
             VALUES (?, ?, ?, ?)`,
       [title, text, idUser, new Date()]
     );
-    console.log(newEntry);
+    console.log(newEntryNote);
 
     //retornamos el id que la base de datos le asigna a la entrada
     return newEntryNote.insertId;
