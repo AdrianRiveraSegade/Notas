@@ -1,19 +1,44 @@
 require("dotenv").config();
 
 const express = require("express");
-
+const fileUpload = require("express-fileupload");
 const morgan = require("morgan");
 
-const { PORT } = process.env;
+const { PORT, UPLOADS_DIR } = process.env;
 //Creamos un servidor express
 const app = express();
+
+//Middleware que indica los directorios estaticos
+app.use(express.static(UPLOADS_DIR));
+
+//Middleware que deserializa un body en formato "raw" creando la propiedad body en el objeto request
+app.use(express.json());
+
+//Middleware que deserializa un body en formato "form-data" creando la propiedad files en el objeto request
+app.use(fileUpload());
 
 //Middleware para mostrar información  sobre la petición
 app.use(morgan("dev"));
 
+/*
+    ###########################
+    #Controladores intermedios#
+    ###########################
+*/
+
+//por ahora vacio, se llenará cuando sea pertinente
+
 app.use((req, res) => {
   res.send("dame tus ordenes, amo");
-});
+}); //para comprobar que el servidor esta activo
+
+/*
+    ##################
+    #Middleware notas#
+    ##################
+*/
+
+//por ahora vacio, se llenará cuando sea pertinente
 
 /*
     ###############################
