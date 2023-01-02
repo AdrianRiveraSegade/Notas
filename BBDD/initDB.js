@@ -42,7 +42,7 @@ const main = async () => {
         id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
         title VARCHAR(35),
         text TEXT,
-        categories (AQUI UN INNERJOIN O ALGO, NO SE TENGO MIEDO),
+        categories VARCHAR(30),
         createdAt TIMESTAMP NOT NULL,
         modifiedAt TIMESTAMP
 
@@ -55,14 +55,13 @@ const main = async () => {
     name VARCHAR(100),
     createdAt TIMESTAMP NOT NULL,
     modifiedAt TIMESTAMP)`);
-    //sin terminar, falta el join entre categories y entryNotes
 
     console.log("¡Tablas creadas!");
 
     //Enciptamos la contraseña del admin (NO ESTOY SEGURO SI ES USUARIO ADMIN O EL DUEÑO DE LA PAGINA)
     const adminPass = await bcrypt.hash(process.env.ADMIN_PASS, 10);
 
-    //insertamos el usuario administrador
+    //insertamos el usuario administrador (PARA QUE QUEREMOS UN USUARIO ADMIN??)
     await connection.query(
       `
             INSERT INTO users (email, password, createdAt)
