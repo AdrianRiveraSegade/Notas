@@ -1,4 +1,4 @@
-const { v4: uuid } = require(uuid);
+const { v4: uuid } = require('uuid');
 
 const { generateError } = require(../helpers.js);
 
