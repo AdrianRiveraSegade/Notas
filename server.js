@@ -22,6 +22,17 @@ app.use(morgan("dev"));
 
 /*
     ###########################
+    #  Middleware de usuarios #
+    ###########################
+*/
+
+const { newUser } = require("./USERS/index");
+
+//Registrar a un usuario pendiente de validar
+app.post("/users", newUser);
+
+/*
+    ###########################
     #Controladores intermedios#
     ###########################
 */

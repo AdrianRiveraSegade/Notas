@@ -82,7 +82,7 @@ const deletePhoto = async (imgName) => {
   }
 };
 
-modile.exports = {
+module.exports = {
   generateError,
   savePhoto,
   deletePhoto,
