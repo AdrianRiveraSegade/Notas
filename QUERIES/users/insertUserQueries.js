@@ -21,9 +21,9 @@ const insertUserQuery = async (email, password) => {
 
     //insertamos al usuario.
     await connection.query(
-      `INSERT INTO users (email, password, createdAt)
-            VALUES (?,?,?)`,
-      [email, hashPass, new Date()]
+      `INSERT INTO users (email, password)
+            VALUES (?,?)`,
+      [email, hashPass]
     );
   } finally {
     if (connection) connection.release();
