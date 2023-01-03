@@ -1,7 +1,7 @@
 const fs = require("fs/promises");
 const path = require("path");
 const sharp = require("sharp");
-const { v4: uudi } = require("uuid");
+const { v4: uuid } = require("uuid");
 
 //Obtenemos las variables de entorno necesarias
 const { UPLOADS_DIR } = process.env;
