@@ -4,15 +4,16 @@ const insertUserQuery = require("../QUERIES/users/insertUserQueries");
 
 const { generateError } = require("../helpers.js");
 
+//Help me Stefano
 const newUser = async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { email, password } = req.body;
 
-    if (!username || !email || !password) {
+    if (!email || !password) {
       throw generateError("Faltan campos", 400);
     }
 
-    await insertUserQuery(username, email, password);
+    await insertUserQuery(email, password);
 
     res.send({
       status: "ok",
