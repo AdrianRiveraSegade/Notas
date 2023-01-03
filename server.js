@@ -9,7 +9,7 @@ const { PORT, UPLOADS_DIR } = process.env;
 const app = express();
 
 //Middleware que indica los directorios estaticos
-app.use(express.static(UPLOADS_DIR));
+//app.use(express.static(UPLOADS_DIR));
 
 //Middleware que deserializa un body en formato "raw" creando la propiedad body en el objeto request
 app.use(express.json());

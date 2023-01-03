@@ -1,4 +1,6 @@
-const { v4: uuid } = require("uuid");
+const insertUserQuery = require("../QUERIES/users/insertUserQueries");
+
+//const { v4: uuid } = require("uuid");
 
 const { generateError } = require("../helpers.js");
 
@@ -10,14 +12,11 @@ const newUser = async (req, res, next) => {
       throw generateError("Faltan campos", 400);
     }
 
-    //Generamos un código de registro de usuario
-    const registrationCode = uuid();
+    await insertUserQuery(username, email, password);
 
     res.send({
       status: "ok",
-      data: {
-        registrationCode,
-      },
+      message: "Usuario creado",
     });
   } catch (err) {
     next(err);
