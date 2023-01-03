@@ -12,6 +12,7 @@ const deleteEntryNotesQuery = async (users_id, title) => {
       `SELECT users_id FROM entryNotes WHERE users_id = ?`,
       [users_id]
     );
+    //comprobamos que quien intenta borrar la nota, es el dueño
     if (deleteEntryNotes.users_id !== users_id) {
       throw generateError("No tienes permisos", 401);
     }
