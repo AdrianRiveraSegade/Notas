@@ -12,65 +12,61 @@ const main = async () => {
 
     console.log("Borrando tablas existentes...");
 
-    await connection.query("DROP TABLE IF EXIST entryPhotos");
-    await connection.query("DROP TABLE IF EXIST entryNotes");
-    await connection.query("DROP TABLE IF EXIST categories");
-    await connection.query("DROP TABLE IF EXIST users");
+    await connection.query("DROP TABLE IF EXISTS entryPhotos");
+    await connection.query("DROP TABLE IF EXISTS entryNotes");
+    await connection.query("DROP TABLE IF EXISTS categories");
+    await connection.query("DROP TABLE IF EXISTS users");
 
     console.log("creando tablas...");
 
     await connection.query(`
-        CREATE TABLE IF NOT EXIST users (
-            id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-            email VARCHAR(70) UNIQUE NOT NULL,
-            password VARCHAR(70) NOT NULL,
-            createdAt TIMESTAMP NOT NULL,
-            modifiedAt TIMESTAMP
-
-        )`);
+    CREATE TABLE IF NOT EXISTS users (
+      id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+      email VARCHAR(70) UNIQUE NOT NULL,
+      password VARCHAR(70) NOT NULL,
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      modifiedAt TIMESTAMP)`);
 
     await connection.query(`
-        CREATE TABLE IF NOT EXIST categories (
-            id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-            categoryName VARCHAR (30),
-            createdAt TIMESTAMP NOT NULL,
-            modifiedAt TIMESTAMP)
-        )`);
+    CREATE TABLE IF NOT EXISTS categories (
+      id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+      categoryName VARCHAR (30),
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      modifiedAt TIMESTAMP)`);
 
     await connection.query(`
-    CREATE TABLE IF NOT EXIST entryNotes (
-        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-        title VARCHAR(35),
-        text TEXT,
-        categories VARCHAR(30),
-        createdAt TIMESTAMP NOT NULL,
-        modifiedAt TIMESTAMP
-
-        
-    )`);
+    CREATE TABLE IF NOT EXISTS entryNotes (
+      id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+      title VARCHAR(35),
+      text TEXT,
+      categories_id INT UNSIGNED,
+      FOREIGN KEY (categories_id) REFERENCES categories(id),
+      users_id INT UNSIGNED,
+      FOREIGN KEY (users_id) REFERENCES users(id),
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      modifiedAt TIMESTAMP)`);
 
     await connection.query(`
-    CREATE TABLE IF NOT EXIST entryPhotos(
-    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100),
-    createdAt TIMESTAMP NOT NULL,
-    modifiedAt TIMESTAMP)`);
+    CREATE TABLE IF NOT EXISTS entryPhotos(
+      id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+      name VARCHAR(100),
+      entryNotes_id INT UNSIGNED,
+      FOREIGN KEY (entryNotes_id) REFERENCES entryNotes(id),
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      modifiedAt TIMESTAMP)`);
 
     console.log("¡Tablas creadas!");
 
-    //Enciptamos la contraseña del admin (NO ESTOY SEGURO SI ES USUARIO ADMIN O EL DUEÑO DE LA PAGINA)
-    const adminPass = await bcrypt.hash(process.env.ADMIN_PASS, 10);
-
-    //insertamos el usuario administrador (PARA QUE QUEREMOS UN USUARIO ADMIN??)
+    //insertamos algunas categorias
     await connection.query(
       `
-            INSERT INTO users (email, password, createdAt)
-            VALUES ('admin@admin.com', ?, ?)
-        `,
-      [adminPass, new Date()]
+            INSERT INTO categories (categoryName)
+            VALUES ("deportes"),
+            ("tecnologia")            
+        `
     );
 
-    console.log("Administrador creado");
+    console.log("Categorias creadas");
   } catch (err) {
     console.error(err);
   } finally {
