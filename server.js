@@ -58,7 +58,7 @@ app.use((req, res) => {
 */
 
 //Para error
-app.use((err, req, res, next) => {
+app.use((err, req, res, _) => {
   console.error(err);
 
   res.status(err.statusCode || 500).send({
