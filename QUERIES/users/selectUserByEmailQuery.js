@@ -1,13 +1,13 @@
 const getConnection = require("../../BBDD/getConnection");
 const { generateError } = require("../../helpers");
-const selectUserByIdQuery = async (email) => {
+const selectUserByEmailQuery = async (email) => {
   let connection;
 
   try {
     connection = await getConnection();
 
     const [users] = await connection.query(
-      `SELECT id, email, createdAt FROM users WHERE email = ?`,
+      `SELECT id, email, password, createdAt FROM users WHERE email = ?`,
       [email]
     );
 
@@ -21,4 +21,4 @@ const selectUserByIdQuery = async (email) => {
   }
 };
 
-module.exports = selectUserByIdQuery;
+module.exports = selectUserByEmailQuery;

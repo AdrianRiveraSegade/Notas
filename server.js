@@ -3,13 +3,18 @@ require("dotenv").config();
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const morgan = require("morgan");
+const path = require("path");
+const { newUser, loginUser } = require("./USERS");
+const { newNote } = require("./NOTES");
 
 const { PORT, UPLOADS_DIR } = process.env;
 //Creamos un servidor express
 const app = express();
 
-//Middleware que indica los directorios estaticos
-//app.use(express.static(UPLOADS_DIR));
+// middleware recursos staticos
+// Ej: http://localhost:4000/a.webp
+const staticDirPath = path.join(__dirname, UPLOADS_DIR);
+app.use(express.static(staticDirPath));
 
 //Middleware que deserializa un body en formato "raw" creando la propiedad body en el objeto request
 app.use(express.json());
@@ -26,10 +31,12 @@ app.use(morgan("dev"));
     ###########################
 */
 
-const { newUser } = require("./USERS/index");
-
-//Registrar a un usuario pendiente de validar
+//Registrar a un usuario
 app.post("/users", newUser);
+//Log in usuario
+app.post("/users/login", loginUser);
+//crear nota  PONER EL ISAUTH
+app.post("/notas", newNote);
 
 /*
     ###########################
@@ -58,7 +65,7 @@ app.use((req, res) => {
 */
 
 //Para error
-app.use((err, req, res, _) => {
+app.use((err, req, res, next) => {
   console.error(err);
 
   res.status(err.statusCode || 500).send({

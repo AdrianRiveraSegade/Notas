@@ -16,7 +16,7 @@ const loginUser = async (req, res, next) => {
 
     //Obtenemos el id del body
     const user = await selectUserByEmailQuery(email);
-
+    console.log(password, user.password);
     //Comprobamos si la contraseña es válida
     const validPassword = await bcrypt.compare(password, user.password);
 
