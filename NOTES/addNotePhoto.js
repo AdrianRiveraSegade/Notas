@@ -1,4 +1,4 @@
-const selectEntryNotesByIdQuery = require("../QUERIES/notes/selectEntryNotesByIdQuery");
+const selectEntryNotesByIdQuery = require("../QUERIES/notes/selectAllEntryNotesQuery");
 const insertPhotoQuery = require("../QUERIES/notes/insertPhotoQuery");
 
 const { generateError, savePhoto } = require("../helpers");

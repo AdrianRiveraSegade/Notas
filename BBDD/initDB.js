@@ -1,7 +1,7 @@
 //importamos la funcion que retorna la conexion con la BBDD
 const getConnection = require("./getConnection");
 
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 
 const main = async () => {
   let connection;

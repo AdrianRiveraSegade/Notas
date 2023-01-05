@@ -1,7 +1,7 @@
 const getConnection = require("../../BBDD/getConnection");
 const { generateError, deletePhoto } = require("../../helpers");
 
-const detelePhotoQuery = async (idEntryPhotos) => {
+const deletePhotoQuery = async (idEntryPhotos) => {
   let connection;
 
   try {
