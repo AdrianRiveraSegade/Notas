@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const path = require("path");
 const { newUser, loginUser } = require("./USERS");
 const { newNote } = require("./NOTES");
-const isAuth = require("./isAuth");
+const { isAuth } = require("./isAuth");
 
 const { PORT, UPLOADS_DIR } = process.env;
 //Creamos un servidor express
