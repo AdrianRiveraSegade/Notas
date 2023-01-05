@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const path = require("path");
 const { newUser, loginUser } = require("./USERS");
 const { newNote } = require("./NOTES");
+const isAuth = require("./isAuth");
 
 const { PORT, UPLOADS_DIR } = process.env;
 //Creamos un servidor express
@@ -36,7 +37,7 @@ app.post("/users", newUser);
 //Log in usuario
 app.post("/users/login", loginUser);
 //crear nota  PONER EL ISAUTH
-app.post("/notas", newNote);
+app.post("/notas", newNote, isAuth);
 
 /*
     ###########################
