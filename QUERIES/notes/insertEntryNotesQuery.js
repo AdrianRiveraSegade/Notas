@@ -1,5 +1,5 @@
 const getConnection = require("../../BBDD/getConnection");
-const insertEntryQuery = async (title, text, categories, idUser) => {
+const insertEntryQuery = async (title, text, categories_id, idUser) => {
   let connection;
 
   try {
@@ -8,11 +8,11 @@ const insertEntryQuery = async (title, text, categories, idUser) => {
     //insertamos la nota y obtenemos los datos de la misma
     const [newEntryNote] = await connection.query(
       `
-            INSERT INTO entryNotes (title, text, idUser, createdAt)
+            INSERT INTO entryNotes (title, text, categories_id, users_id)
             VALUES (?, ?, ?, ?)`,
-      [title, text, idUser, new Date()]
+      [title, text, categories_id, idUser]
     );
-    console.log(newEntryNote);
+    //console.log(newEntryNote);
 
     //retornamos el id que la base de datos le asigna a la entrada
     return newEntryNote.insertId;

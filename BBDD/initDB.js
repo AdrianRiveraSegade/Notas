@@ -37,9 +37,9 @@ const main = async () => {
     await connection.query(`
     CREATE TABLE IF NOT EXISTS entryNotes (
       id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-      title VARCHAR(35),
-      text TEXT,
-      categories_id INT UNSIGNED,
+      title VARCHAR(35) NOT NULL,
+      text TEXT NOT NULL,
+      categories_id INT UNSIGNED NOT NULL,
       FOREIGN KEY (categories_id) REFERENCES categories(id),
       users_id INT UNSIGNED,
       FOREIGN KEY (users_id) REFERENCES users(id),

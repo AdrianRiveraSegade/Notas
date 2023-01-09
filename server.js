@@ -5,8 +5,8 @@ const fileUpload = require("express-fileupload");
 const morgan = require("morgan");
 const path = require("path");
 const { newUser, loginUser } = require("./USERS");
-const { newNote } = require("./NOTES");
-const { isAuth } = require("./isAuth");
+const { newNote, getNote } = require("./NOTES");
+const isAuth = require("./middleware/isAuth");
 
 const { PORT, UPLOADS_DIR } = process.env;
 //Creamos un servidor express
@@ -28,7 +28,7 @@ app.use(morgan("dev"));
 
 /*
     ###########################
-    #  Middleware de usuarios #
+    #  End point de usuarios #
     ###########################
 */
 
@@ -36,28 +36,24 @@ app.use(morgan("dev"));
 app.post("/users", newUser);
 //Log in usuario
 app.post("/users/login", loginUser);
-//crear nota  PONER EL ISAUTH
-app.post("/notas", newNote, isAuth);
 
 /*
     ###########################
-    #Controladores intermedios#
+    #  End point de notas #
     ###########################
 */
 
-//por ahora vacio, se llenará cuando sea pertinente
-
-app.use((req, res) => {
-  res.send("dame tus ordenes, amo");
-}); //para comprobar que el servidor esta activo
-
-/*
-    ##################
-    #Middleware notas#
-    ##################
-*/
-
-//por ahora vacio, se llenará cuando sea pertinente
+//crear nota
+app.post("/notas", isAuth, newNote);
+// ver listado de notas (solo ver titulos)
+// FIXME devolver: titulo, iduser, emailuser (JOIN con tabla users), crerateAT
+app.get("/notas", listNotes);
+// visualiar una nota
+// FIXME Devolver todas las informaciones de la nota (incluida email user JOIN con tabla users)
+app.get("/notas/:id", isAuth, getNote);
+// modificar notas (titulo, texto y categoria)
+// FIXME: comprobar que sea mi nota (conincida req.user.id con users_id de la tabla entriesNotes)
+app.patch(("/notas/:id", isAuth, modNote));
 
 /*
     ###############################

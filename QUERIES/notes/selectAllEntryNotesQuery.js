@@ -7,7 +7,7 @@ const selectAllEntryNotesQuery = async () => {
     connection = await getConnection();
 
     const [entryNotes] = await connection.query(
-      `SELECT id, title, text, categories, createdAt
+      `SELECT id, title, text, categories_id, createdAt
             FROM entryNotes`
     );
     if (entryNotes.length < 1) {

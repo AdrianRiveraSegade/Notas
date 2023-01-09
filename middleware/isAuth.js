@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const { generateError } = require("./helpers");
+const { generateError } = require("../helpers");
 
 const isAuth = async (req, res, next) => {
   try {

@@ -7,7 +7,8 @@ const insertPhotoQuery = async (photo, entryNotes_id) => {
     connection = await getConnection();
 
     await connection.query(
-      `INSERT INTO entryPhotos (name, entryNotes_id)`[(photo, entryNotes_id)]
+      `INSERT INTO entryPhotos(name, entryNotes_id) VALUES(?,?)`,
+      [photo, entryNotes_id]
     );
   } finally {
     if (connection) connection.release();
