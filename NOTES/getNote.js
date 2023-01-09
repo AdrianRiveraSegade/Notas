@@ -1,10 +1,10 @@
-const selectEntryNotesByIdQuery = require("../QUERIES/notes/selectAllEntryNotesQuery");
+const selectEntryNoteByIdQuery = require("../QUERIES/notes/selectEntryNoteByIdQuery");
 
 const getNote = async (req, res, next) => {
   try {
-    const { idEntryNote } = req.params;
+    const { id } = req.params;
 
-    const note = await selectEntryNotesByIdQuery(idEntryNote);
+    const note = await selectEntryNoteByIdQuery(id);
 
     res.send({
       status: "ok",

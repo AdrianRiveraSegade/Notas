@@ -50,7 +50,7 @@ app.post("/users/login", loginUser);
 app.post("/notas", isAuth, newNote);
 
 // ver listado de notas (solo ver titulos)
-app.get("/notas/listNotes/:users_id", listNotes); // Aiuda, no me da la info que le pido
+app.get("/notas", isAuth, listNotes); // Aiuda, no me da la info que le pido
 
 // visualiar una nota
 app.get("/notas/:id", isAuth, getNote);
