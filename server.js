@@ -8,6 +8,7 @@ const { newUser, loginUser } = require("./USERS");
 const { newNote, getNote } = require("./NOTES");
 const isAuth = require("./middleware/isAuth");
 const listNotes = require("./middleware/listNotes");
+const modNote = require("./middleware/modNote");
 
 const { PORT, UPLOADS_DIR } = process.env;
 //Creamos un servidor express
@@ -35,6 +36,7 @@ app.use(morgan("dev"));
 
 //Registrar a un usuario
 app.post("/users", newUser);
+
 //Log in usuario
 app.post("/users/login", loginUser);
 
@@ -46,15 +48,15 @@ app.post("/users/login", loginUser);
 
 //crear nota
 app.post("/notas", isAuth, newNote);
+
 // ver listado de notas (solo ver titulos)
-// FIXME devolver: titulo, iduser, emailuser (JOIN con tabla users), crerateAT
-app.get("/notas/listNotes", listNotes);
+app.get("/notas/listNotes/:users_id", listNotes); // Aiuda, no me da la info que le pido
+
 // visualiar una nota
-// FIXME Devolver todas las informaciones de la nota (incluida email user JOIN con tabla users)
 app.get("/notas/:id", isAuth, getNote);
+
 // modificar notas (titulo, texto y categoria)
-// FIXME: comprobar que sea mi nota (conincida req.user.id con users_id de la tabla entriesNotes)
-//app.patch(("/notas/:id", isAuth, modNote));
+app.put("/notas/:id", isAuth, modNote);
 
 /*
     ###############################

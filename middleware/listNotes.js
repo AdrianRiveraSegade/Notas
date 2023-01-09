@@ -1,24 +1,21 @@
-const getConnection = require("../BBDD/getConnection");
-const { generateError } = require("../helpers");
+const listNotes = require("../QUERIES/notes/selectListNotes");
 
-const listNotes = async (users_id) => {
-  let connection;
+const listOfNotes = async (req, res, next) => {
   try {
-    connection = await getConnection();
+    const { users_id } = req.params;
 
-    const [entryNotes] = await connection.query(
-      `SELECT id, title, users_id, users_email, createdAt
-            FROM entryNotes WHERE user_id = ?
-            VALUES (?)`,
-      [users_id]
-    );
-    if (entryNotes.length < 1) {
-      throw generateError("No se ha encontrado ninguna nota", 404);
-    }
-    return entryNotes;
-  } finally {
-    if (connection) connection.release();
+    // Array de notas.
+    const notes = await listNotes(users_id);
+
+    res.send({
+      status: "ok",
+      data: {
+        notes,
+      },
+    });
+  } catch (err) {
+    next(err);
   }
 };
 
-module.exports = listNotes;
+module.exports = listOfNotes;

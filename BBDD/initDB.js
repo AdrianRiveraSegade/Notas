@@ -43,8 +43,6 @@ const main = async () => {
       FOREIGN KEY (categories_id) REFERENCES categories(id),
       users_id INT UNSIGNED,
       FOREIGN KEY (users_id) REFERENCES users(id),
-      users_email INT UNSIGNED,
-      FOREIGN KEY (users_email) REFERENCES users(email),
       createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       modifiedAt TIMESTAMP)`);
 
