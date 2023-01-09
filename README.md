@@ -3,8 +3,8 @@
 para hacer :
 
     para usuarios anonimos
-        Login - usar email + contraseña
-        Registro - pide email + contraseña
+        Login - usar email + contraseña ------------------------------------------------ DONE
+        Registro - pide email + contraseña --------------------------------------------- DONE
 
     para usuarios registrados
         ver listado de notas (solo ver titulos) ---------------------------------------- DONE
