@@ -48,7 +48,7 @@ app.post("/users/login", loginUser);
 app.post("/notas", isAuth, newNote);
 // ver listado de notas (solo ver titulos)
 // FIXME devolver: titulo, iduser, emailuser (JOIN con tabla users), crerateAT
-app.get("/notas", listNotes);
+app.get("/notas/listNotes", listNotes);
 // visualiar una nota
 // FIXME Devolver todas las informaciones de la nota (incluida email user JOIN con tabla users)
 app.get("/notas/:id", isAuth, getNote);
