@@ -7,6 +7,7 @@ const path = require("path");
 const { newUser, loginUser } = require("./USERS");
 const { newNote, getNote } = require("./NOTES");
 const isAuth = require("./middleware/isAuth");
+const listNotes = require("./middleware/listNotes");
 
 const { PORT, UPLOADS_DIR } = process.env;
 //Creamos un servidor express
@@ -53,7 +54,7 @@ app.get("/notas", listNotes);
 app.get("/notas/:id", isAuth, getNote);
 // modificar notas (titulo, texto y categoria)
 // FIXME: comprobar que sea mi nota (conincida req.user.id con users_id de la tabla entriesNotes)
-app.patch(("/notas/:id", isAuth, modNote));
+//app.patch(("/notas/:id", isAuth, modNote));
 
 /*
     ###############################
