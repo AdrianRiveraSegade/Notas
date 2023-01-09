@@ -7,12 +7,12 @@ para hacer :
         Registro - pide email + contraseña
 
     para usuarios registrados
-        ver listado de notas (solo ver titulos)
-        visualiar una nota
-        crear una nota (titulo, texto y categoria unica)
-        modificar notas (titulo, texto y categoria)
+        ver listado de notas (solo ver titulos) --- DONE
+        visualiar una nota --- DONE
+        crear una nota (titulo, texto y categoria unica) --- DONE
+        modificar notas (titulo, texto y categoria) --- DONE
         opcional
-            marcar notas como publicas solo a usuarios registrados que tengan la url
-            eliminar nota
-            crear, editar y borrar categorias
-            añadir una unica imagen por cada nota
+            marcar notas como publicas solo a usuarios registrados que tengan la url --- NOPE
+            eliminar nota --- WIP
+            crear, editar y borrar categorias --- WIP
+            añadir una unica imagen por cada nota --- DONE
