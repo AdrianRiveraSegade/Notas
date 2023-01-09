@@ -6,8 +6,7 @@ const modNoteQuery = async (title, text, categories_id, users_id) => {
     connection = await getConnection();
 
     const [modNote] = await connection.query(
-      `
-            UPDATE entryNotes SET title = ?, text = ?, categories_id = ? WHERE users_id = ?`,
+      `UPDATE entryNotes SET title = ?, text = ?, categories_id = ? WHERE users_id = ?`,
       [title, text, categories_id, users_id]
     );
 

@@ -8,7 +8,7 @@ const modNoteS = async (req, res, next) => {
     if (!title || !text || !categories_id)
       throw generateError("Faltan campos", 400);
 
-    await modNote(title, text, categories_id);
+    await modNote(title, text, categories_id, req.user.id);
 
     res.send({
       status: "ok",
