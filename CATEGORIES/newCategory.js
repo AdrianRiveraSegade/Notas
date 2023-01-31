@@ -1,6 +1,6 @@
 const insertCategoriesQuery = require("../QUERIES/categories/insertCategoriesQuery");
 
-const generateError = require("../helpers");
+const { generateError } = require("../helpers");
 
 const newCategory = async (req, res, next) => {
   try {

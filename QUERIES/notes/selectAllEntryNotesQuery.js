@@ -7,8 +7,9 @@ const selectAllEntryNotesQuery = async (user_id) => {
     connection = await getConnection();
 
     const [entryNotes] = await connection.query(
-      `SELECT id, title, text, categories_id, createdAt
-            FROM entryNotes WHERE users_id = ?`,
+      `SELECT id, title, categories_id, createdAt
+            FROM entryNotes WHERE users_id = ?
+            ORDER BY createdAt DESC `,
       [user_id]
     );
 

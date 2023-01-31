@@ -1,5 +1,4 @@
 const modNote = require("../QUERIES/notes/modNoteQuery");
-const selectListNotes = require("../QUERIES/notes/selectEntryNoteByIdQuery");
 
 const { generateError } = require("../helpers");
 
@@ -11,9 +10,7 @@ const modNoteS = async (req, res, next) => {
     if (!title || !text || !categories_id)
       throw generateError("Faltan campos", 400);
 
-    await selectListNotes(id);
-
-    await modNote(title, text, categories_id, req.user.id);
+    await modNote(id, title, text, categories_id, req.user.id);
 
     res.send({
       status: "ok",

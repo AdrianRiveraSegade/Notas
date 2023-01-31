@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
 
-const generateError = require("../helpers.js");
+const { generateError } = require("../helpers.js");
 
 const loginUser = async (req, res, next) => {
   try {

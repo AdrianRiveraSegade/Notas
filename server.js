@@ -9,10 +9,14 @@ const { newNote, getNote } = require("./NOTES");
 const isAuth = require("./middleware/isAuth");
 const listNotes = require("./middleware/listNotes");
 const modNote = require("./middleware/modNote");
+const cors = require("cors");
 
 const { PORT, UPLOADS_DIR } = process.env;
 //Creamos un servidor express
 const app = express();
+
+// añado middleware cors para aceptar peticiones desde React
+app.use(cors());
 
 // middleware recursos staticos
 // Ej: http://localhost:4000/a.webp
@@ -66,7 +70,7 @@ app.put("/notas/:id", isAuth, modNote);
 
 //Para error
 app.use((err, req, res, next) => {
-  console.error(err);
+  //console.error(err);
 
   res.status(err.statusCode || 500).send({
     status: "error",
